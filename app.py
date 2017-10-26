@@ -65,7 +65,6 @@ index_page = html.Div(style = {'font-family': 'Helvetica', 'background-color': '
 base = pd.read_csv('https://raw.githubusercontent.com/nicolasescobar0325/dash1/master/INFORME_DV_DIARIO.csv', delimiter = ',')
 del base['CODIGO_DIRECTOR_VENTAS']
 base = base.drop_duplicates()
-base = base.sort_values('FECHA', ascending = True)
 
 base['FECHA'] = pd.to_datetime(base['FECHA'], format='%d/%m/%Y', errors='coerce')
 base['FECHA2'] = pd.to_datetime(base['FECHA'], format="%Y%m") + MonthEnd(0)
@@ -74,6 +73,8 @@ base['PRODUCTO'][base['PRODUCTO']=='721']='DAVIDA'
 base['PRODUCTO'][base['PRODUCTO']=='793']='VIDA GRUPO NEGOCIO'
 base['PRODUCTO'][base['PRODUCTO']=='115']='HOGAR BANCARIO'
 
+base = base.sort_values(['FECHA', 'PRODUCTO', 'DIRECTOR_VENTAS'], ascending = [True, True, True])
+                        
 options_sgro = base['PRODUCTO'].unique()
 options_loc = base['LOCALIDAD'].unique()
 options_dir = base['DIRECTOR_VENTAS'].unique()
@@ -217,7 +218,7 @@ def update_figure(selected_sgro, selected_loc, selected_dir):
     name = 'Director',
     marker = {'color': '#3381ff'},
     mode = "lines",
-    hoverinfo="name+text"
+    hoverinfo="x+name+text"
     )
 
     trace2 = Scatter(
@@ -227,7 +228,7 @@ def update_figure(selected_sgro, selected_loc, selected_dir):
     name = 'Objetivo',
     marker = {'color': '#ff5733'},
     mode = "lines",
-    hoverinfo="name+text"
+    hoverinfo="x+name+text"
     )
 
     trace3 = Scatter(
@@ -237,7 +238,7 @@ def update_figure(selected_sgro, selected_loc, selected_dir):
     name = 'Total',
     marker = {'color': '#23c052'},
     mode = "lines",
-    hoverinfo="name+text"
+    hoverinfo="x+name+text"
     )
 
     layout = Layout(
@@ -289,7 +290,7 @@ def update_figure(selected_sgro, selected_loc, selected_dir):
     name = 'Director',
     marker = {'color': '#3381ff'},
     mode = "lines",
-    hoverinfo="text+name"
+    hoverinfo="x+text+name"
     )
 
     trace2 = Scatter(
@@ -299,7 +300,7 @@ def update_figure(selected_sgro, selected_loc, selected_dir):
     name = 'Objetivo',
     marker = {'color': '#ff5733'},
     mode = "lines",
-    hoverinfo="text+name"
+    hoverinfo="x+text+name"
     )
 
     trace3 = Scatter(
@@ -309,7 +310,7 @@ def update_figure(selected_sgro, selected_loc, selected_dir):
     name = 'Total',
     marker = {'color': '#23c052'},
     mode = "lines",
-    hoverinfo="text+name"
+    hoverinfo="x+text+name"
     )
 
     layout = Layout(
@@ -395,7 +396,7 @@ def update_figure(selected_sgro, selected_loc, selected_dir):
 base2 = pd.read_csv('https://raw.githubusercontent.com/nicolasescobar0325/dash1/master/INFORME_INFORMADOR_DIARIO.csv', delimiter = ',')
 del base2['CODIGO_DIRECTOR_VENTAS']
 base2=base2.drop_duplicates()
-base2=base2.sort_values('FECHA', ascending=True)
+base2=base2.sort_values(['FECHA', 'DIRECTOR_VENTAS', 'NOMBRE_INFORMADOR_VENTAS'], ascending=[True, True, True])
 
 base2['FECHA'] = pd.to_datetime(base2['FECHA'], format='%d/%m/%Y', errors='coerce')
 
@@ -502,7 +503,7 @@ def update_figure(selected_dir2, selected_inf):
     name = 'Informador',
     marker = {'color': '#3381ff'},
     mode = "lines",
-    hoverinfo="y"
+    hoverinfo="x+y"
     )
 
     trace3 = Scatter(
@@ -512,7 +513,7 @@ def update_figure(selected_dir2, selected_inf):
     name = 'Total',
     marker = {'color': '#23c052'},
     mode = "lines",
-    hoverinfo="y"
+    hoverinfo="x+y"
     )
 
     layout = Layout(
@@ -549,7 +550,7 @@ def update_figure(selected_dir2, selected_inf):
     name = 'Informador',
     marker = {'color': '#3381ff'},
     mode = "lines",
-    hoverinfo="y"
+    hoverinfo="x+y"
     )
 
     trace3 = Scatter(
@@ -559,7 +560,7 @@ def update_figure(selected_dir2, selected_inf):
     name = 'Total',
     marker = {'color': '#23c052'},
     mode = "lines",
-    hoverinfo="y"
+    hoverinfo="x+y"
     )
 
     layout = Layout(
@@ -648,7 +649,7 @@ def update_figure(selected_dir2, selected_inf):
 base3 = pd.read_csv('https://raw.githubusercontent.com/nicolasescobar0325/dash1/master/INFORME_ASESOR_DIARIO.csv', delimiter = ',')
 del base3['CODIGO_DIRECTOR_VENTAS']
 base3=base3.drop_duplicates()
-base3=base3.sort_values('FECHA', ascending=True)
+base3=base3.sort_values(['FECHA', 'DIRECTOR_VENTAS', 'NOMBRE_ASESOR_VENTAS'], ascending=[True, True, True])
 base3['FECHA'] = pd.to_datetime(base3['FECHA'], format='%d/%m/%Y', errors='coerce')
 
 options_dir3 = base3['DIRECTOR_VENTAS'].unique()
@@ -751,7 +752,8 @@ def update_figure(selected_dir3, selected_ase):
     text = 'Asesor',
     name = 'Asesor',
     marker = {'color': '#3381ff'},
-    mode = "lines"
+    mode = "lines",
+    hoverinfo="x+y"
     )
 
     trace2 = Scatter(
@@ -760,7 +762,8 @@ def update_figure(selected_dir3, selected_ase):
     text = 'Total',
     name = 'Total',
     marker = {'color': '#23c052'},
-    mode = "lines"
+    mode = "lines",
+    hoverinfo="x+y"
     )
 
     layout = Layout(
@@ -796,7 +799,8 @@ def update_figure(selected_dir3, selected_ase):
     text = 'Asesor',
     name = 'Asesor',
     marker = {'color': '#3381ff'},
-    mode = "lines"
+    mode = "lines",
+    hoverinfo="x+y"
     )
 
     trace2 = Scatter(
@@ -805,7 +809,8 @@ def update_figure(selected_dir3, selected_ase):
     text = 'Total',
     name = 'Total',
     marker = {'color': '#23c052'},
-    mode = "lines"
+    mode = "lines",
+    hoverinfo="x+y"
     )
 
     layout = Layout(
@@ -891,7 +896,8 @@ def update_figure(selected_dir3, selected_ase):
 
 baseMes['FECHA'] = pd.to_datetime(baseMes['FECHA'], format='%d/%m/%Y', errors='coerce')
 fechaMax=baseMes['FECHA'].max()
-baseFiltro=baseMes[['FECHA', 'LOCALIDAD','PRODUCTO', 'CUMPLIMIENTO_TOTAL']][(baseMes['FECHA']==fechaMax)&(baseMes['PRODUCTO']=='721')&(baseMes['DIRECTOR_VENTAS']=='(Todos)')].sort_values('CUMPLIMIENTO_TOTAL', ascending=False)
+baseMes['PRODUCTO2']='  '+baseMes['PRODUCTO']
+baseFiltro=baseMes[['FECHA', 'LOCALIDAD','PRODUCTO2', 'CUMPLIMIENTO_TOTAL']][(baseMes['FECHA']==fechaMax)&(baseMes['PRODUCTO2']=='  DAVIDA')&(baseMes['DIRECTOR_VENTAS']=='(Todos)')].sort_values('CUMPLIMIENTO_TOTAL', ascending=False)
 baseFiltro.reset_index(inplace=True)
 baseFiltro['POSICION'] = baseFiltro.index
 baseFiltro['POSICION']=baseFiltro['POSICION']+1
@@ -902,6 +908,8 @@ basePeor=baseFiltro
 baseMejor=baseFiltro.head(n=10)
 basePeor=basePeor.tail(n=10)
 basePeor=basePeor.sort_values('POSICION',ascending=False)
+
+options_sgro2 = baseMes['PRODUCTO2'].unique()
 
 Tabla1=ff.create_table(baseMejor)
 
@@ -915,10 +923,10 @@ page_4_layout = html.Div(style = {'font-family': 'Helvetica','height': '100%','b
         html.Div(style = {'padding-left': '20px', 'padding-top': '20px', 'font-size': '12'}, children = [
             html.P(style = {'color': '#ffffff', 'font-family': 'Helvetica', 'font-size': '16'}, children = 'Seleccione tipo seguro:'),
             dcc.RadioItems(
-                id ='sgro-drop',
-                options = [{'label': i, 'value': i} for i in options_sgro],
-            value='DAVIDA',
-            labelStyle={'display': 'block', 'font-size': '12'}
+                id ='sgro-drop', className='w3-radio',
+                options = [{'label': i, 'value': i} for i in options_sgro2],
+                value='DAVIDA',
+                labelStyle={'display': 'block', 'font-size': '12'}
             ),
         ]),
         html.Br(),
@@ -955,7 +963,7 @@ def update_figure(selected_sgro):
 
     baseMes['FECHA'] = pd.to_datetime(baseMes['FECHA'], format='%d/%m/%Y', errors='coerce')
     fechaMax=baseMes['FECHA'].max()
-    baseFiltro=baseMes[['FECHA', 'LOCALIDAD', 'PRODUCTO', 'CUMPLIMIENTO_TOTAL']][(baseMes['FECHA']==fechaMax)&(baseMes['PRODUCTO']==selected_sgro)&(baseMes['DIRECTOR_VENTAS']=='(Todos)')].sort_values('CUMPLIMIENTO_TOTAL', ascending=False)
+    baseFiltro=baseMes[['FECHA', 'LOCALIDAD', 'PRODUCTO2', 'CUMPLIMIENTO_TOTAL']][(baseMes['FECHA']==fechaMax)&(baseMes['PRODUCTO2']==selected_sgro)&(baseMes['DIRECTOR_VENTAS']=='(Todos)')].sort_values('CUMPLIMIENTO_TOTAL', ascending=False)
     baseFiltro.reset_index(inplace=True)
     baseFiltro['POSICION'] = baseFiltro.index
     baseFiltro['POSICION']=baseFiltro['POSICION']+1
@@ -978,12 +986,12 @@ def update_figure(selected_sgro):
 
     baseMes['FECHA'] = pd.to_datetime(baseMes['FECHA'], format='%d/%m/%Y', errors='coerce')
     fechaMax=baseMes['FECHA'].max()
-    baseFiltro=baseMes[['FECHA', 'LOCALIDAD', 'PRODUCTO', 'CUMPLIMIENTO_TOTAL']][(baseMes['FECHA']==fechaMax)&(baseMes['PRODUCTO']==selected_sgro)&(baseMes['DIRECTOR_VENTAS']=='(Todos)')].sort_values('CUMPLIMIENTO_TOTAL', ascending=False)
+    baseFiltro=baseMes[['FECHA', 'LOCALIDAD', 'PRODUCTO2', 'CUMPLIMIENTO_TOTAL']][(baseMes['FECHA']==fechaMax)&(baseMes['PRODUCTO2']==selected_sgro)&(baseMes['DIRECTOR_VENTAS']=='(Todos)')].sort_values('CUMPLIMIENTO_TOTAL', ascending=False)
     baseFiltro.reset_index(inplace=True)
     baseFiltro['POSICION'] = baseFiltro.index
     baseFiltro['POSICION']=baseFiltro['POSICION']+1
     baseFiltro['CUMPLIMIENTO TOTAL'] = pd.Series([round(val, 2) for val in baseFiltro['CUMPLIMIENTO_TOTAL']])
-    baseFiltro['CUMPLIMIENTO TOTAL'] = pd.Series(["{0:.2f}%".format(val * 100) for val in baseFiltro['CUMPLIMIENTO TOTAL']])
+    baseFiltro['CUMPLIMIENTO TOTAL'] = pd.Series(["{0:.0f}%".format(val * 100) for val in baseFiltro['CUMPLIMIENTO TOTAL']])
     baseFiltro=baseFiltro[['POSICION', 'LOCALIDAD', 'CUMPLIMIENTO TOTAL']]
     basePeor=baseFiltro
     baseMejor=baseFiltro.head(n=10)
