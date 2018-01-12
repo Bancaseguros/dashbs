@@ -28,7 +28,7 @@ app.layout = html.Div([
 
 index_page = html.Div(style = {'font-family': 'Helvetica', 'background-color': '#ffffff', 'overflow': 'hidden', 'background-color': '#275968'}, children =[
     html.Div(style = {'font-family': 'Helvetica', 'font-size': '15','max-width': '100%','margin': 'auto', 'padding-left': '25px', 'padding-top': '20px','background-color': '#275968'}, children=[
-        html.H1(style = {'font-family': 'Helvetica', 'font-size': '33','color': '#ffffff'},children='Escoja el tipo de informaciÃ³n que desea ver:')
+        html.H1(style = {'font-family': 'Helvetica', 'font-size': '33','color': '#ffffff'},children='Escoja el tipo de información que desea ver:')
     ]),
     html.Div(style = {'height':'100vh','margin': 'auto','text-align':'middle','background-color': '#275968','padding-left': '25px', 'padding-top': '25px','font-family': 'Helvetica', 'font-size': '13','width': '50%', 'color': '#ffffff', 'margin': 'auto', 'float':'left','box-shadow': '4px 5px 9px -3px rgba(102,102,102,1)'}, children =[
         html.H2(style = {'font-family': 'Helvetica', 'font-size': '28','color': '#ffffff','margin': 'auto'}, children='Dashboards comerciales:'),
